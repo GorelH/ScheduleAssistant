@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="Entities">
+    <EntitySetMapping Name="People">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Person)">
+        <MappingFragment StoreEntitySet="People">
+          <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Age" ColumnName="Age" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Timeslots">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Timeslots)">
+        <MappingFragment StoreEntitySet="Timeslots">
+          <ScalarProperty Name="TimeslotId" ColumnName="TimeslotId" />
+          <ScalarProperty Name="Start" ColumnName="Start" />
+          <ScalarProperty Name="End" ColumnName="End" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Groups">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Groups)">
+        <MappingFragment StoreEntitySet="Groups">
+          <ScalarProperty Name="GroupId" ColumnName="GroupId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Rooms">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Rooms)">
+        <MappingFragment StoreEntitySet="Rooms">
+          <ScalarProperty Name="RoomId" ColumnName="RoomId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Location" ColumnName="Location" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Specialities">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Specialities)">
+        <MappingFragment StoreEntitySet="Specialities">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HasSpecialties">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.HasSpecialty)">
+        <MappingFragment StoreEntitySet="HasSpecialties">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="GroupsPerson" TypeName="Model.GroupsPerson" StoreEntitySet="GroupsPerson">
+      <EndProperty Name="Groups">
+        <ScalarProperty Name="GroupId" ColumnName="Group_GroupId" />
+      </EndProperty>
+      <EndProperty Name="Person">
+        <ScalarProperty Name="PersonId" ColumnName="People_PersonId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="TimeslotsGroups" TypeName="Model.TimeslotsGroups" StoreEntitySet="Timeslots">
+      <EndProperty Name="Groups">
+        <ScalarProperty Name="GroupId" ColumnName="Groups_GroupId" />
+      </EndProperty>
+      <EndProperty Name="Timeslots">
+        <ScalarProperty Name="TimeslotId" ColumnName="TimeslotId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="RoomsTimeslots" TypeName="Model.RoomsTimeslots" StoreEntitySet="RoomsTimeslots">
+      <EndProperty Name="Rooms">
+        <ScalarProperty Name="RoomId" ColumnName="Room_RoomId" />
+      </EndProperty>
+      <EndProperty Name="Timeslots">
+        <ScalarProperty Name="TimeslotId" ColumnName="Timeslots_TimeslotId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="SpecialitiesHasSpecialty" TypeName="Model.SpecialitiesHasSpecialty" StoreEntitySet="HasSpecialties">
+      <EndProperty Name="Specialities">
+        <ScalarProperty Name="Id" ColumnName="Speciality_Id" />
+      </EndProperty>
+      <EndProperty Name="HasSpecialty">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <EntitySetMapping Name="Students">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Students)" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <MappingFragment StoreEntitySet="People_Students">
+          <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="HasSpecialtyStudents" TypeName="Model.HasSpecialtyStudents" StoreEntitySet="People_Students" />
+    <EntitySetMapping Name="Teachers">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Teachers)" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <MappingFragment StoreEntitySet="People_Teachers">
+          <ScalarProperty Name="TeacherId" ColumnName="TeacherId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="HasSpecialtyTeachers" TypeName="Model.HasSpecialtyTeachers" StoreEntitySet="People_Teachers">
+      <EndProperty Name="Teachers">
+        <ScalarProperty Name="TeacherId" ColumnName="TeacherId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <EntitySetMapping Name="CaseManagers">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.CaseManagers)" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <MappingFragment StoreEntitySet="People_CaseManagers">
+          <ScalarProperty Name="CaseManagerId" ColumnName="CaseManagerId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="PersonCaseManagers" TypeName="Model.PersonCaseManagers" StoreEntitySet="People">
+      <EndProperty Name="Person">
+        <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="PersonTeachers" TypeName="Model.PersonTeachers" StoreEntitySet="People">
+      <EndProperty Name="Person">
+        <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>

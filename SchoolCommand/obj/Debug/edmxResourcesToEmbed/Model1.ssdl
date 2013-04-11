@@ -1,0 +1,285 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Model.Store" Alias="Self" Provider="System.Data.SqlServerCe.4.0" ProviderManifestToken="4.0" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="ModelStoreContainer">
+    <EntitySet Name="People" EntityType="Model.Store.People" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Timeslots" EntityType="Model.Store.Timeslots" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Groups" EntityType="Model.Store.Groups" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Rooms" EntityType="Model.Store.Rooms" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Specialities" EntityType="Model.Store.Specialities" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="HasSpecialties" EntityType="Model.Store.HasSpecialties" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="People_Teachers" EntityType="Model.Store.People_Teachers" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="People_Students" EntityType="Model.Store.People_Students" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="People_CaseManagers" EntityType="Model.Store.People_CaseManagers" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="GroupsPerson" EntityType="Model.Store.GroupsPerson" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="RoomsTimeslots" EntityType="Model.Store.RoomsTimeslots" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_GroupsPerson_Groups" Association="Model.Store.FK_GroupsPerson_Groups">
+      <End Role="Groups" EntitySet="Groups" />
+      <End Role="GroupsPerson" EntitySet="GroupsPerson" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GroupsPerson_Person" Association="Model.Store.FK_GroupsPerson_Person">
+      <End Role="Person" EntitySet="People" />
+      <End Role="GroupsPerson" EntitySet="GroupsPerson" />
+    </AssociationSet>
+    <AssociationSet Name="HasSpecialtyTeachers" Association="Model.Store.HasSpecialtyTeachers">
+      <End Role="HasSpecialty" EntitySet="HasSpecialties" />
+      <End Role="Teachers" EntitySet="People_Teachers" />
+    </AssociationSet>
+    <AssociationSet Name="HasSpecialtyStudents" Association="Model.Store.HasSpecialtyStudents">
+      <End Role="HasSpecialty" EntitySet="HasSpecialties" />
+      <End Role="Students" EntitySet="People_Students" />
+    </AssociationSet>
+    <AssociationSet Name="TimeslotsGroups" Association="Model.Store.TimeslotsGroups">
+      <End Role="Timeslots" EntitySet="Timeslots" />
+      <End Role="Groups" EntitySet="Groups" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RoomsTimeslots_Rooms" Association="Model.Store.FK_RoomsTimeslots_Rooms">
+      <End Role="Rooms" EntitySet="Rooms" />
+      <End Role="RoomsTimeslots" EntitySet="RoomsTimeslots" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RoomsTimeslots_Timeslots" Association="Model.Store.FK_RoomsTimeslots_Timeslots">
+      <End Role="Timeslots" EntitySet="Timeslots" />
+      <End Role="RoomsTimeslots" EntitySet="RoomsTimeslots" />
+    </AssociationSet>
+    <AssociationSet Name="SpecialitiesHasSpecialty" Association="Model.Store.SpecialitiesHasSpecialty">
+      <End Role="Specialities" EntitySet="Specialities" />
+      <End Role="HasSpecialty" EntitySet="HasSpecialties" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Teachers_inherits_Person" Association="Model.Store.FK_Teachers_inherits_Person">
+      <End Role="Person" EntitySet="People" />
+      <End Role="Teachers" EntitySet="People_Teachers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Students_inherits_Person" Association="Model.Store.FK_Students_inherits_Person">
+      <End Role="Person" EntitySet="People" />
+      <End Role="Students" EntitySet="People_Students" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CaseManagers_inherits_Person" Association="Model.Store.FK_CaseManagers_inherits_Person">
+      <End Role="Person" EntitySet="People" />
+      <End Role="CaseManagers" EntitySet="People_CaseManagers" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="People">
+    <Key>
+      <PropertyRef Name="PersonId" />
+    </Key>
+    <Property Name="PersonId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" />
+    <Property Name="Address" Type="nvarchar" Nullable="false" />
+    <Property Name="Age" Type="nvarchar" Nullable="false" />
+    <Property Name="Phone" Type="nvarchar" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Timeslots">
+    <Key>
+      <PropertyRef Name="TimeslotId" />
+    </Key>
+    <Property Name="TimeslotId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Start" Type="datetime" Nullable="false" />
+    <Property Name="End" Type="datetime" Nullable="false" />
+    <Property Name="Groups_GroupId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Groups">
+    <Key>
+      <PropertyRef Name="GroupId" />
+    </Key>
+    <Property Name="GroupId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Rooms">
+    <Key>
+      <PropertyRef Name="RoomId" />
+    </Key>
+    <Property Name="RoomId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" />
+    <Property Name="Location" Type="nvarchar" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Specialities">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" />
+  </EntityType>
+  <EntityType Name="HasSpecialties">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Speciality_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="People_Teachers">
+    <Key>
+      <PropertyRef Name="PersonId" />
+    </Key>
+    <Property Name="TeacherId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PersonId" Type="int" Nullable="false" />
+    <Property Name="HasSpecialty_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="People_Students">
+    <Key>
+      <PropertyRef Name="PersonId" />
+    </Key>
+    <Property Name="StudentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PersonId" Type="int" Nullable="false" />
+    <Property Name="HasSpecialty_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="People_CaseManagers">
+    <Key>
+      <PropertyRef Name="PersonId" />
+    </Key>
+    <Property Name="CaseManagerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PersonId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="GroupsPerson">
+    <Key>
+      <PropertyRef Name="Group_GroupId" />
+      <PropertyRef Name="People_PersonId" />
+    </Key>
+    <Property Name="Group_GroupId" Type="int" Nullable="false" />
+    <Property Name="People_PersonId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RoomsTimeslots">
+    <Key>
+      <PropertyRef Name="Room_RoomId" />
+      <PropertyRef Name="Timeslots_TimeslotId" />
+    </Key>
+    <Property Name="Room_RoomId" Type="int" Nullable="false" />
+    <Property Name="Timeslots_TimeslotId" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="HasSpecialtyTeachers">
+    <End Role="HasSpecialty" Type="Model.Store.HasSpecialties" Multiplicity="1" />
+    <End Role="Teachers" Type="Model.Store.People_Teachers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="HasSpecialty">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Teachers">
+        <PropertyRef Name="HasSpecialty_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="HasSpecialtyStudents">
+    <End Role="HasSpecialty" Type="Model.Store.HasSpecialties" Multiplicity="1" />
+    <End Role="Students" Type="Model.Store.People_Students" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="HasSpecialty">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Students">
+        <PropertyRef Name="HasSpecialty_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="TimeslotsGroups">
+    <End Role="Timeslots" Type="Model.Store.Timeslots" Multiplicity="*" />
+    <End Role="Groups" Type="Model.Store.Groups" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Groups">
+        <PropertyRef Name="GroupId" />
+      </Principal>
+      <Dependent Role="Timeslots">
+        <PropertyRef Name="Groups_GroupId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="SpecialitiesHasSpecialty">
+    <End Role="Specialities" Type="Model.Store.Specialities" Multiplicity="1" />
+    <End Role="HasSpecialty" Type="Model.Store.HasSpecialties" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Specialities">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="HasSpecialty">
+        <PropertyRef Name="Speciality_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GroupsPerson_Groups">
+    <End Role="Groups" Type="Model.Store.Groups" Multiplicity="1" />
+    <End Role="GroupsPerson" Type="Model.Store.GroupsPerson" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Groups">
+        <PropertyRef Name="GroupId" />
+      </Principal>
+      <Dependent Role="GroupsPerson">
+        <PropertyRef Name="Group_GroupId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GroupsPerson_Person">
+    <End Role="GroupsPerson" Type="Model.Store.GroupsPerson" Multiplicity="*" />
+    <End Role="Person" Type="Model.Store.People" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="PersonId" />
+      </Principal>
+      <Dependent Role="GroupsPerson">
+        <PropertyRef Name="People_PersonId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RoomsTimeslots_Rooms">
+    <End Role="Rooms" Type="Model.Store.Rooms" Multiplicity="1" />
+    <End Role="RoomsTimeslots" Type="Model.Store.RoomsTimeslots" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Rooms">
+        <PropertyRef Name="RoomId" />
+      </Principal>
+      <Dependent Role="RoomsTimeslots">
+        <PropertyRef Name="Room_RoomId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RoomsTimeslots_Timeslots">
+    <End Role="RoomsTimeslots" Type="Model.Store.RoomsTimeslots" Multiplicity="*" />
+    <End Role="Timeslots" Type="Model.Store.Timeslots" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Timeslots">
+        <PropertyRef Name="TimeslotId" />
+      </Principal>
+      <Dependent Role="RoomsTimeslots">
+        <PropertyRef Name="Timeslots_TimeslotId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Teachers_inherits_Person">
+    <End Role="Person" Type="Model.Store.People" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Teachers" Type="Model.Store.People_Teachers" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="PersonId" />
+      </Principal>
+      <Dependent Role="Teachers">
+        <PropertyRef Name="PersonId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Students_inherits_Person">
+    <End Role="Person" Type="Model.Store.People" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Students" Type="Model.Store.People_Students" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="PersonId" />
+      </Principal>
+      <Dependent Role="Students">
+        <PropertyRef Name="PersonId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CaseManagers_inherits_Person">
+    <End Role="Person" Type="Model.Store.People" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="CaseManagers" Type="Model.Store.People_CaseManagers" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="PersonId" />
+      </Principal>
+      <Dependent Role="CaseManagers">
+        <PropertyRef Name="PersonId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

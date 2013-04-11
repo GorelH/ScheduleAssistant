@@ -1,0 +1,9 @@
+c:\users\anthony\documents\visual studio 2012\Projects\SchoolCommand\SchoolCommand\bin\Debug\SchoolCommand.exe.config
+c:\users\anthony\documents\visual studio 2012\Projects\SchoolCommand\SchoolCommand\bin\Debug\MyDatabase#1.sdf
+c:\users\anthony\documents\visual studio 2012\Projects\SchoolCommand\SchoolCommand\bin\Debug\SchoolCommand.exe
+c:\users\anthony\documents\visual studio 2012\Projects\SchoolCommand\SchoolCommand\bin\Debug\SchoolCommand.pdb
+c:\users\anthony\documents\visual studio 2012\Projects\SchoolCommand\SchoolCommand\bin\Debug\EntityFramework.dll
+c:\users\anthony\documents\visual studio 2012\Projects\SchoolCommand\SchoolCommand\bin\Debug\EntityFramework.xml
+c:\users\anthony\documents\visual studio 2012\Projects\SchoolCommand\SchoolCommand\obj\Debug\SchoolCommand.csprojResolveAssemblyReference.cache
+c:\users\anthony\documents\visual studio 2012\Projects\SchoolCommand\SchoolCommand\obj\Debug\SchoolCommand.exe
+c:\users\anthony\documents\visual studio 2012\Projects\SchoolCommand\SchoolCommand\obj\Debug\SchoolCommand.pdb
