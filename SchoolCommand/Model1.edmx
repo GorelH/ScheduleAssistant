@@ -320,7 +320,7 @@
           <Key>
             <PropertyRef Name="TimeslotId" />
           </Key>
-          <Property Type="Int32" Name="TimeslotId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Guid" Name="TimeslotId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="DateTime" Name="Start" Nullable="false" />
           <Property Type="DateTime" Name="End" Nullable="false" />
           <NavigationProperty Name="GroupHasTimeslots" Relationship="Model.TimeslotsGroupHasTimeslot" FromRole="Timeslots" ToRole="GroupHasTimeslot" />
