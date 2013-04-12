@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server Compact Edition
 -- --------------------------------------------------
--- Date Created: 01/26/2013 21:38:55
--- Generated from EDMX file: c:\users\anthony\documents\visual studio 2012\Projects\SchoolCommand\SchoolCommand\Model1.edmx
+-- Date Created: 04/11/2013 19:57:31
+-- Generated from EDMX file: C:\Users\Anthony\documents\visual studio 2012\Projects\SchoolCommand\SchoolCommand\Model1.edmx
 -- --------------------------------------------------
 
 
@@ -12,27 +12,9 @@
 -- NOTE: if the constraint does not exist, an ignorable error will be reported.
 -- --------------------------------------------------
 
-    ALTER TABLE [GroupsPerson] DROP CONSTRAINT [FK_GroupsPerson_Groups];
-GO
-    ALTER TABLE [GroupsPerson] DROP CONSTRAINT [FK_GroupsPerson_Person];
-GO
-    ALTER TABLE [People_Teachers] DROP CONSTRAINT [FK_HasSpecialtyTeachers];
-GO
-    ALTER TABLE [People_Students] DROP CONSTRAINT [FK_HasSpecialtyStudents];
-GO
     ALTER TABLE [Timeslots] DROP CONSTRAINT [FK_TimeslotsGroups];
 GO
-    ALTER TABLE [RoomsTimeslots] DROP CONSTRAINT [FK_RoomsTimeslots_Rooms];
-GO
-    ALTER TABLE [RoomsTimeslots] DROP CONSTRAINT [FK_RoomsTimeslots_Timeslots];
-GO
     ALTER TABLE [HasSpecialties] DROP CONSTRAINT [FK_SpecialitiesHasSpecialty];
-GO
-    ALTER TABLE [People_Teachers] DROP CONSTRAINT [FK_Teachers_inherits_Person];
-GO
-    ALTER TABLE [People_Students] DROP CONSTRAINT [FK_Students_inherits_Person];
-GO
-    ALTER TABLE [People_CaseManagers] DROP CONSTRAINT [FK_CaseManagers_inherits_Person];
 GO
 
 -- --------------------------------------------------
@@ -51,16 +33,6 @@ GO
     DROP TABLE [Specialities];
 GO
     DROP TABLE [HasSpecialties];
-GO
-    DROP TABLE [People_Teachers];
-GO
-    DROP TABLE [People_Students];
-GO
-    DROP TABLE [People_CaseManagers];
-GO
-    DROP TABLE [GroupsPerson];
-GO
-    DROP TABLE [RoomsTimeslots];
 GO
 
 -- --------------------------------------------------
@@ -81,14 +53,16 @@ GO
 CREATE TABLE [Timeslots] (
     [TimeslotId] int IDENTITY(1,1) NOT NULL,
     [Start] datetime  NOT NULL,
-    [End] datetime  NOT NULL,
-    [Groups_GroupId] int  NOT NULL
+    [End] datetime  NOT NULL
 );
 GO
 
 -- Creating table 'Groups'
 CREATE TABLE [Groups] (
-    [GroupId] int IDENTITY(1,1) NOT NULL
+    [GroupId] int IDENTITY(1,1) NOT NULL,
+    [RoomId] nvarchar(4000)  NOT NULL,
+    [Subject] nvarchar(4000)  NOT NULL,
+    [Room_RoomId] int  NOT NULL
 );
 GO
 
@@ -111,44 +85,47 @@ GO
 -- Creating table 'HasSpecialties'
 CREATE TABLE [HasSpecialties] (
     [Id] int IDENTITY(1,1) NOT NULL,
-    [Speciality_Id] int  NOT NULL
+    [SpecialtyId] nvarchar(4000)  NOT NULL,
+    [PersonId] nvarchar(4000)  NOT NULL,
+    [Speciality_Id] int  NOT NULL,
+    [Person_PersonId] int  NOT NULL
 );
 GO
 
--- Creating table 'People_Teachers'
-CREATE TABLE [People_Teachers] (
-    [TeacherId] int IDENTITY(1,1) NOT NULL,
-    [PersonId] int  NOT NULL,
-    [HasSpecialty_Id] int  NOT NULL
+-- Creating table 'Roles'
+CREATE TABLE [Roles] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Name] nvarchar(4000)  NOT NULL
 );
 GO
 
--- Creating table 'People_Students'
-CREATE TABLE [People_Students] (
-    [StudentId] int IDENTITY(1,1) NOT NULL,
-    [PersonId] int  NOT NULL,
-    [HasSpecialty_Id] int  NOT NULL
+-- Creating table 'HasRoles'
+CREATE TABLE [HasRoles] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [RoleId] nvarchar(4000)  NOT NULL,
+    [PersonId] nvarchar(4000)  NOT NULL,
+    [Person_PersonId] int  NOT NULL,
+    [Role_Id] int  NOT NULL
 );
 GO
 
--- Creating table 'People_CaseManagers'
-CREATE TABLE [People_CaseManagers] (
-    [CaseManagerId] int IDENTITY(1,1) NOT NULL,
-    [PersonId] int  NOT NULL
+-- Creating table 'HasGroups'
+CREATE TABLE [HasGroups] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [PersonId] nvarchar(4000)  NOT NULL,
+    [GroupId] nvarchar(4000)  NOT NULL,
+    [Person_PersonId] int  NOT NULL,
+    [Group_GroupId] int  NOT NULL
 );
 GO
 
--- Creating table 'GroupsPerson'
-CREATE TABLE [GroupsPerson] (
+-- Creating table 'GroupHasTimeslots'
+CREATE TABLE [GroupHasTimeslots] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [TimeslotId] nvarchar(4000)  NOT NULL,
+    [GroupId] nvarchar(4000)  NOT NULL,
     [Group_GroupId] int  NOT NULL,
-    [People_PersonId] int  NOT NULL
-);
-GO
-
--- Creating table 'RoomsTimeslots'
-CREATE TABLE [RoomsTimeslots] (
-    [Room_RoomId] int  NOT NULL,
-    [Timeslots_TimeslotId] int  NOT NULL
+    [Timeslot_TimeslotId] int  NOT NULL
 );
 GO
 
@@ -192,127 +169,33 @@ ADD CONSTRAINT [PK_HasSpecialties]
     PRIMARY KEY ([Id] );
 GO
 
--- Creating primary key on [PersonId] in table 'People_Teachers'
-ALTER TABLE [People_Teachers]
-ADD CONSTRAINT [PK_People_Teachers]
-    PRIMARY KEY ([PersonId] );
+-- Creating primary key on [Id] in table 'Roles'
+ALTER TABLE [Roles]
+ADD CONSTRAINT [PK_Roles]
+    PRIMARY KEY ([Id] );
 GO
 
--- Creating primary key on [PersonId] in table 'People_Students'
-ALTER TABLE [People_Students]
-ADD CONSTRAINT [PK_People_Students]
-    PRIMARY KEY ([PersonId] );
+-- Creating primary key on [Id] in table 'HasRoles'
+ALTER TABLE [HasRoles]
+ADD CONSTRAINT [PK_HasRoles]
+    PRIMARY KEY ([Id] );
 GO
 
--- Creating primary key on [PersonId] in table 'People_CaseManagers'
-ALTER TABLE [People_CaseManagers]
-ADD CONSTRAINT [PK_People_CaseManagers]
-    PRIMARY KEY ([PersonId] );
+-- Creating primary key on [Id] in table 'HasGroups'
+ALTER TABLE [HasGroups]
+ADD CONSTRAINT [PK_HasGroups]
+    PRIMARY KEY ([Id] );
 GO
 
--- Creating primary key on [Group_GroupId], [People_PersonId] in table 'GroupsPerson'
-ALTER TABLE [GroupsPerson]
-ADD CONSTRAINT [PK_GroupsPerson]
-    PRIMARY KEY ([Group_GroupId], [People_PersonId] );
-GO
-
--- Creating primary key on [Room_RoomId], [Timeslots_TimeslotId] in table 'RoomsTimeslots'
-ALTER TABLE [RoomsTimeslots]
-ADD CONSTRAINT [PK_RoomsTimeslots]
-    PRIMARY KEY ([Room_RoomId], [Timeslots_TimeslotId] );
+-- Creating primary key on [Id] in table 'GroupHasTimeslots'
+ALTER TABLE [GroupHasTimeslots]
+ADD CONSTRAINT [PK_GroupHasTimeslots]
+    PRIMARY KEY ([Id] );
 GO
 
 -- --------------------------------------------------
 -- Creating all FOREIGN KEY constraints
 -- --------------------------------------------------
-
--- Creating foreign key on [Group_GroupId] in table 'GroupsPerson'
-ALTER TABLE [GroupsPerson]
-ADD CONSTRAINT [FK_GroupsPerson_Groups]
-    FOREIGN KEY ([Group_GroupId])
-    REFERENCES [Groups]
-        ([GroupId])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating foreign key on [People_PersonId] in table 'GroupsPerson'
-ALTER TABLE [GroupsPerson]
-ADD CONSTRAINT [FK_GroupsPerson_Person]
-    FOREIGN KEY ([People_PersonId])
-    REFERENCES [People]
-        ([PersonId])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-
--- Creating non-clustered index for FOREIGN KEY 'FK_GroupsPerson_Person'
-CREATE INDEX [IX_FK_GroupsPerson_Person]
-ON [GroupsPerson]
-    ([People_PersonId]);
-GO
-
--- Creating foreign key on [HasSpecialty_Id] in table 'People_Teachers'
-ALTER TABLE [People_Teachers]
-ADD CONSTRAINT [FK_HasSpecialtyTeachers]
-    FOREIGN KEY ([HasSpecialty_Id])
-    REFERENCES [HasSpecialties]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-
--- Creating non-clustered index for FOREIGN KEY 'FK_HasSpecialtyTeachers'
-CREATE INDEX [IX_FK_HasSpecialtyTeachers]
-ON [People_Teachers]
-    ([HasSpecialty_Id]);
-GO
-
--- Creating foreign key on [HasSpecialty_Id] in table 'People_Students'
-ALTER TABLE [People_Students]
-ADD CONSTRAINT [FK_HasSpecialtyStudents]
-    FOREIGN KEY ([HasSpecialty_Id])
-    REFERENCES [HasSpecialties]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-
--- Creating non-clustered index for FOREIGN KEY 'FK_HasSpecialtyStudents'
-CREATE INDEX [IX_FK_HasSpecialtyStudents]
-ON [People_Students]
-    ([HasSpecialty_Id]);
-GO
-
--- Creating foreign key on [Groups_GroupId] in table 'Timeslots'
-ALTER TABLE [Timeslots]
-ADD CONSTRAINT [FK_TimeslotsGroups]
-    FOREIGN KEY ([Groups_GroupId])
-    REFERENCES [Groups]
-        ([GroupId])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-
--- Creating non-clustered index for FOREIGN KEY 'FK_TimeslotsGroups'
-CREATE INDEX [IX_FK_TimeslotsGroups]
-ON [Timeslots]
-    ([Groups_GroupId]);
-GO
-
--- Creating foreign key on [Room_RoomId] in table 'RoomsTimeslots'
-ALTER TABLE [RoomsTimeslots]
-ADD CONSTRAINT [FK_RoomsTimeslots_Rooms]
-    FOREIGN KEY ([Room_RoomId])
-    REFERENCES [Rooms]
-        ([RoomId])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating foreign key on [Timeslots_TimeslotId] in table 'RoomsTimeslots'
-ALTER TABLE [RoomsTimeslots]
-ADD CONSTRAINT [FK_RoomsTimeslots_Timeslots]
-    FOREIGN KEY ([Timeslots_TimeslotId])
-    REFERENCES [Timeslots]
-        ([TimeslotId])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-
--- Creating non-clustered index for FOREIGN KEY 'FK_RoomsTimeslots_Timeslots'
-CREATE INDEX [IX_FK_RoomsTimeslots_Timeslots]
-ON [RoomsTimeslots]
-    ([Timeslots_TimeslotId]);
-GO
 
 -- Creating foreign key on [Speciality_Id] in table 'HasSpecialties'
 ALTER TABLE [HasSpecialties]
@@ -328,31 +211,116 @@ ON [HasSpecialties]
     ([Speciality_Id]);
 GO
 
--- Creating foreign key on [PersonId] in table 'People_Teachers'
-ALTER TABLE [People_Teachers]
-ADD CONSTRAINT [FK_Teachers_inherits_Person]
-    FOREIGN KEY ([PersonId])
+-- Creating foreign key on [Person_PersonId] in table 'HasSpecialties'
+ALTER TABLE [HasSpecialties]
+ADD CONSTRAINT [FK_PersonHasSpecialty]
+    FOREIGN KEY ([Person_PersonId])
     REFERENCES [People]
         ([PersonId])
-    ON DELETE CASCADE ON UPDATE NO ACTION;
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_PersonHasSpecialty'
+CREATE INDEX [IX_FK_PersonHasSpecialty]
+ON [HasSpecialties]
+    ([Person_PersonId]);
 GO
 
--- Creating foreign key on [PersonId] in table 'People_Students'
-ALTER TABLE [People_Students]
-ADD CONSTRAINT [FK_Students_inherits_Person]
-    FOREIGN KEY ([PersonId])
+-- Creating foreign key on [Person_PersonId] in table 'HasRoles'
+ALTER TABLE [HasRoles]
+ADD CONSTRAINT [FK_PersonHasRole]
+    FOREIGN KEY ([Person_PersonId])
     REFERENCES [People]
         ([PersonId])
-    ON DELETE CASCADE ON UPDATE NO ACTION;
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_PersonHasRole'
+CREATE INDEX [IX_FK_PersonHasRole]
+ON [HasRoles]
+    ([Person_PersonId]);
 GO
 
--- Creating foreign key on [PersonId] in table 'People_CaseManagers'
-ALTER TABLE [People_CaseManagers]
-ADD CONSTRAINT [FK_CaseManagers_inherits_Person]
-    FOREIGN KEY ([PersonId])
+-- Creating foreign key on [Person_PersonId] in table 'HasGroups'
+ALTER TABLE [HasGroups]
+ADD CONSTRAINT [FK_PersonHasGroup]
+    FOREIGN KEY ([Person_PersonId])
     REFERENCES [People]
         ([PersonId])
-    ON DELETE CASCADE ON UPDATE NO ACTION;
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_PersonHasGroup'
+CREATE INDEX [IX_FK_PersonHasGroup]
+ON [HasGroups]
+    ([Person_PersonId]);
+GO
+
+-- Creating foreign key on [Group_GroupId] in table 'HasGroups'
+ALTER TABLE [HasGroups]
+ADD CONSTRAINT [FK_GroupsHasGroup]
+    FOREIGN KEY ([Group_GroupId])
+    REFERENCES [Groups]
+        ([GroupId])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_GroupsHasGroup'
+CREATE INDEX [IX_FK_GroupsHasGroup]
+ON [HasGroups]
+    ([Group_GroupId]);
+GO
+
+-- Creating foreign key on [Room_RoomId] in table 'Groups'
+ALTER TABLE [Groups]
+ADD CONSTRAINT [FK_RoomsGroups]
+    FOREIGN KEY ([Room_RoomId])
+    REFERENCES [Rooms]
+        ([RoomId])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_RoomsGroups'
+CREATE INDEX [IX_FK_RoomsGroups]
+ON [Groups]
+    ([Room_RoomId]);
+GO
+
+-- Creating foreign key on [Group_GroupId] in table 'GroupHasTimeslots'
+ALTER TABLE [GroupHasTimeslots]
+ADD CONSTRAINT [FK_GroupsGroupHasTimeslot]
+    FOREIGN KEY ([Group_GroupId])
+    REFERENCES [Groups]
+        ([GroupId])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_GroupsGroupHasTimeslot'
+CREATE INDEX [IX_FK_GroupsGroupHasTimeslot]
+ON [GroupHasTimeslots]
+    ([Group_GroupId]);
+GO
+
+-- Creating foreign key on [Timeslot_TimeslotId] in table 'GroupHasTimeslots'
+ALTER TABLE [GroupHasTimeslots]
+ADD CONSTRAINT [FK_TimeslotsGroupHasTimeslot]
+    FOREIGN KEY ([Timeslot_TimeslotId])
+    REFERENCES [Timeslots]
+        ([TimeslotId])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_TimeslotsGroupHasTimeslot'
+CREATE INDEX [IX_FK_TimeslotsGroupHasTimeslot]
+ON [GroupHasTimeslots]
+    ([Timeslot_TimeslotId]);
+GO
+
+-- Creating foreign key on [Role_Id] in table 'HasRoles'
+ALTER TABLE [HasRoles]
+ADD CONSTRAINT [FK_RolesHasRole]
+    FOREIGN KEY ([Role_Id])
+    REFERENCES [Roles]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_RolesHasRole'
+CREATE INDEX [IX_FK_RolesHasRole]
+ON [HasRoles]
+    ([Role_Id]);
 GO
 
 -- --------------------------------------------------

@@ -16,7 +16,9 @@ namespace SchoolCommand
     {
         public Person()
         {
-            this.Group = new HashSet<Groups>();
+            this.HasSpecialties = new HashSet<HasSpecialty>();
+            this.HasRoles = new HashSet<HasRole>();
+            this.HasGroups = new HashSet<HasGroup>();
         }
     
         public int PersonId { get; set; }
@@ -25,9 +27,8 @@ namespace SchoolCommand
         public string Age { get; set; }
         public string Phone { get; set; }
     
-        public virtual ICollection<Groups> Group { get; set; }
-        public virtual Students Student { get; set; }
-        public virtual Teachers Teachers { get; set; }
-        public virtual CaseManagers CaseManagers { get; set; }
+        public virtual ICollection<HasSpecialty> HasSpecialties { get; set; }
+        public virtual ICollection<HasRole> HasRoles { get; set; }
+        public virtual ICollection<HasGroup> HasGroups { get; set; }
     }
 }

@@ -31,8 +31,9 @@ namespace SchoolCommand
         public DbSet<Rooms> Rooms { get; set; }
         public DbSet<Specialities> Specialities { get; set; }
         public DbSet<HasSpecialty> HasSpecialties { get; set; }
-        public DbSet<Students> Students { get; set; }
-        public DbSet<Teachers> Teachers { get; set; }
-        public DbSet<CaseManagers> CaseManagers { get; set; }
+        public DbSet<Roles> Roles { get; set; }
+        public DbSet<HasRole> HasRoles { get; set; }
+        public DbSet<HasGroup> HasGroups { get; set; }
+        public DbSet<GroupHasTimeslot> GroupHasTimeslots { get; set; }
     }
 }

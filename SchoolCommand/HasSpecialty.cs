@@ -14,16 +14,11 @@ namespace SchoolCommand
     
     public partial class HasSpecialty
     {
-        public HasSpecialty()
-        {
-            this.Teachers = new HashSet<Teachers>();
-            this.Students = new HashSet<Students>();
-        }
-    
         public int Id { get; set; }
+        public string SpecialtyId { get; set; }
+        public string PersonId { get; set; }
     
-        public virtual ICollection<Teachers> Teachers { get; set; }
-        public virtual ICollection<Students> Students { get; set; }
         public virtual Specialities Speciality { get; set; }
+        public virtual Person Person { get; set; }
     }
 }

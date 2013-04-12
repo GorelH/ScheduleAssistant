@@ -5,24 +5,25 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="311992fa036743dcb8b5e474cab74733" Name="Diagram1" ZoomLevel="83" >
-        <EntityTypeShape EntityType="Model.Person" Width="1.5" PointX="4.5" PointY="5.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.Teachers" Width="1.5" PointX="5.125" PointY="9.875" />
-        <EntityTypeShape EntityType="Model.Students" Width="1.5" PointX="2.5" PointY="10.375" />
-        <EntityTypeShape EntityType="Model.CaseManagers" Width="1.5" PointX="9.875" PointY="8.5" />
-        <EntityTypeShape EntityType="Model.Timeslots" Width="1.5" PointX="1.25" PointY="0.875" />
-        <EntityTypeShape EntityType="Model.Groups" Width="1.5" PointX="1.25" PointY="4.125" />
-        <EntityTypeShape EntityType="Model.Rooms" Width="1.5" PointX="1.25" PointY="7" />
-        <EntityTypeShape EntityType="Model.Specialities" Width="1.5" PointX="3.375" PointY="0.875" />
-        <EntityTypeShape EntityType="Model.HasSpecialty" Width="1.5" PointX="5.625" PointY="0.875" />
-        <AssociationConnector Association="Model.GroupsPerson" />
-        <AssociationConnector Association="Model.HasSpecialtyTeachers" />
-        <AssociationConnector Association="Model.HasSpecialtyStudents" />
-        <AssociationConnector Association="Model.TimeslotsGroups" />
-        <AssociationConnector Association="Model.RoomsTimeslots" />
+        <EntityTypeShape EntityType="Model.Person" Width="1.5" PointX="5.75" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Timeslots" Width="1.5" PointX="3.625" PointY="0.875" />
+        <EntityTypeShape EntityType="Model.Groups" Width="1.5" PointX="1.25" PointY="3.5" />
+        <EntityTypeShape EntityType="Model.Rooms" Width="1.5" PointX="3.625" PointY="5.625" />
+        <EntityTypeShape EntityType="Model.Specialities" Width="1.5" PointX="10.125" PointY="1.125" />
+        <EntityTypeShape EntityType="Model.HasSpecialty" Width="1.5" PointX="7.875" PointY="1" />
         <AssociationConnector Association="Model.SpecialitiesHasSpecialty" />
-        <AssociationConnector Association="Model.StudentsPerson" />
-        <AssociationConnector Association="Model.PersonTeachers" />
-        <AssociationConnector Association="Model.PersonCaseManagers" />
+        <EntityTypeShape EntityType="Model.Roles" Width="1.5" PointX="10.125" PointY="4.125" />
+        <AssociationConnector Association="Model.PersonHasSpecialty" />
+        <EntityTypeShape EntityType="Model.HasRole" Width="1.5" PointX="7.875" PointY="4" />
+        <AssociationConnector Association="Model.PersonHasRole" />
+        <EntityTypeShape EntityType="Model.HasGroup" Width="1.5" PointX="3.625" PointY="3.125" />
+        <AssociationConnector Association="Model.PersonHasGroup" />
+        <AssociationConnector Association="Model.GroupsHasGroup" />
+        <AssociationConnector Association="Model.RoomsGroups" />
+        <EntityTypeShape EntityType="Model.GroupHasTimeslot" Width="1.5" PointX="1.375" PointY="1" />
+        <AssociationConnector Association="Model.GroupsGroupHasTimeslot" />
+        <AssociationConnector Association="Model.TimeslotsGroupHasTimeslot" />
+        <AssociationConnector Association="Model.RolesHasRole" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

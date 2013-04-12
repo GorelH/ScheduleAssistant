@@ -51,16 +51,16 @@ namespace SchoolCommand
 
             using (var db = new Entities())
             {
-                if (p is Students)
-                {
-                    Person output = db.People.Add(p);
+                //if (p is Students)
+                //{
+                //    Person output = db.People.Add(p);
                     
-                }
+                //}
 
-                else if (p is Teachers)
-                { }
-                else if (p is CaseManagers)
-                { }
+                //else if (p is Teachers)
+                //{ }
+                //else if (p is CaseManagers)
+                //{ }
                 db.SaveChanges();
             }
 

@@ -16,14 +16,13 @@ namespace SchoolCommand
     {
         public Timeslots()
         {
-            this.Room = new HashSet<Rooms>();
+            this.GroupHasTimeslots = new HashSet<GroupHasTimeslot>();
         }
     
         public int TimeslotId { get; set; }
         public System.DateTime Start { get; set; }
         public System.DateTime End { get; set; }
     
-        public virtual Groups Groups { get; set; }
-        public virtual ICollection<Rooms> Room { get; set; }
+        public virtual ICollection<GroupHasTimeslot> GroupHasTimeslots { get; set; }
     }
 }

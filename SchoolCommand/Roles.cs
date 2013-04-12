@@ -12,20 +12,16 @@ namespace SchoolCommand
     using System;
     using System.Collections.Generic;
     
-    public partial class Groups
+    public partial class Roles
     {
-        public Groups()
+        public Roles()
         {
-            this.HasGroups = new HashSet<HasGroup>();
-            this.GroupHasTimeslots = new HashSet<GroupHasTimeslot>();
+            this.HasRoles = new HashSet<HasRole>();
         }
     
-        public int GroupId { get; set; }
-        public string RoomId { get; set; }
-        public string Subject { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
     
-        public virtual ICollection<HasGroup> HasGroups { get; set; }
-        public virtual Rooms Room { get; set; }
-        public virtual ICollection<GroupHasTimeslot> GroupHasTimeslots { get; set; }
+        public virtual ICollection<HasRole> HasRoles { get; set; }
     }
 }

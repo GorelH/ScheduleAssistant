@@ -7,44 +7,45 @@
     <EntitySet Name="Rooms" EntityType="Model.Rooms" />
     <EntitySet Name="Specialities" EntityType="Model.Specialities" />
     <EntitySet Name="HasSpecialties" EntityType="Model.HasSpecialty" />
-    <AssociationSet Name="GroupsPerson" Association="Model.GroupsPerson">
-      <End Role="Groups" EntitySet="Groups" />
-      <End Role="Person" EntitySet="People" />
-    </AssociationSet>
-    <AssociationSet Name="HasSpecialtyTeachers" Association="Model.HasSpecialtyTeachers">
-      <End Role="HasSpecialty" EntitySet="HasSpecialties" />
-      <End Role="Teachers" EntitySet="Teachers" />
-    </AssociationSet>
-    <AssociationSet Name="HasSpecialtyStudents" Association="Model.HasSpecialtyStudents">
-      <End Role="HasSpecialty" EntitySet="HasSpecialties" />
-      <End Role="Students" EntitySet="Students" />
-    </AssociationSet>
-    <AssociationSet Name="TimeslotsGroups" Association="Model.TimeslotsGroups">
-      <End Role="Timeslots" EntitySet="Timeslots" />
-      <End Role="Groups" EntitySet="Groups" />
-    </AssociationSet>
-    <AssociationSet Name="RoomsTimeslots" Association="Model.RoomsTimeslots">
-      <End Role="Rooms" EntitySet="Rooms" />
-      <End Role="Timeslots" EntitySet="Timeslots" />
-    </AssociationSet>
     <AssociationSet Name="SpecialitiesHasSpecialty" Association="Model.SpecialitiesHasSpecialty">
       <End Role="Specialities" EntitySet="Specialities" />
       <End Role="HasSpecialty" EntitySet="HasSpecialties" />
     </AssociationSet>
-    <EntitySet Name="Students" EntityType="Model.Students" />
-    <EntitySet Name="Teachers" EntityType="Model.Teachers" />
-    <EntitySet Name="CaseManagers" EntityType="Model.CaseManagers" />
-    <AssociationSet Name="StudentsPerson" Association="Model.StudentsPerson">
-      <End Role="Students" EntitySet="Students" />
+    <EntitySet Name="Roles" EntityType="Model.Roles" />
+    <AssociationSet Name="PersonHasSpecialty" Association="Model.PersonHasSpecialty">
       <End Role="Person" EntitySet="People" />
+      <End Role="HasSpecialty" EntitySet="HasSpecialties" />
     </AssociationSet>
-    <AssociationSet Name="PersonTeachers" Association="Model.PersonTeachers">
+    <EntitySet Name="HasRoles" EntityType="Model.HasRole" />
+    <AssociationSet Name="PersonHasRole" Association="Model.PersonHasRole">
       <End Role="Person" EntitySet="People" />
-      <End Role="Teachers" EntitySet="Teachers" />
+      <End Role="HasRole" EntitySet="HasRoles" />
     </AssociationSet>
-    <AssociationSet Name="PersonCaseManagers" Association="Model.PersonCaseManagers">
+    <EntitySet Name="HasGroups" EntityType="Model.HasGroup" />
+    <AssociationSet Name="PersonHasGroup" Association="Model.PersonHasGroup">
       <End Role="Person" EntitySet="People" />
-      <End Role="CaseManagers" EntitySet="CaseManagers" />
+      <End Role="HasGroup" EntitySet="HasGroups" />
+    </AssociationSet>
+    <AssociationSet Name="GroupsHasGroup" Association="Model.GroupsHasGroup">
+      <End Role="Groups" EntitySet="Groups" />
+      <End Role="HasGroup" EntitySet="HasGroups" />
+    </AssociationSet>
+    <AssociationSet Name="RoomsGroups" Association="Model.RoomsGroups">
+      <End Role="Rooms" EntitySet="Rooms" />
+      <End Role="Groups" EntitySet="Groups" />
+    </AssociationSet>
+    <EntitySet Name="GroupHasTimeslots" EntityType="Model.GroupHasTimeslot" />
+    <AssociationSet Name="GroupsGroupHasTimeslot" Association="Model.GroupsGroupHasTimeslot">
+      <End Role="Groups" EntitySet="Groups" />
+      <End Role="GroupHasTimeslot" EntitySet="GroupHasTimeslots" />
+    </AssociationSet>
+    <AssociationSet Name="TimeslotsGroupHasTimeslot" Association="Model.TimeslotsGroupHasTimeslot">
+      <End Role="Timeslots" EntitySet="Timeslots" />
+      <End Role="GroupHasTimeslot" EntitySet="GroupHasTimeslots" />
+    </AssociationSet>
+    <AssociationSet Name="RolesHasRole" Association="Model.RolesHasRole">
+      <End Role="Roles" EntitySet="Roles" />
+      <End Role="HasRole" EntitySet="HasRoles" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="Person">
@@ -56,33 +57,9 @@
     <Property Type="String" Name="Address" Nullable="false" />
     <Property Type="String" Name="Age" Nullable="false" />
     <Property Type="String" Name="Phone" Nullable="false" />
-    <NavigationProperty Name="Group" Relationship="Model.GroupsPerson" FromRole="Person" ToRole="Groups" />
-    <NavigationProperty Name="Student" Relationship="Model.StudentsPerson" FromRole="Person" ToRole="Students" />
-    <NavigationProperty Name="Teachers" Relationship="Model.PersonTeachers" FromRole="Person" ToRole="Teachers" />
-    <NavigationProperty Name="CaseManagers" Relationship="Model.PersonCaseManagers" FromRole="Person" ToRole="CaseManagers" />
-  </EntityType>
-  <EntityType Name="Teachers">
-    <Key>
-      <PropertyRef Name="TeacherId" />
-    </Key>
-    <Property Type="Int32" Name="TeacherId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <NavigationProperty Name="HasSpecialty" Relationship="Model.HasSpecialtyTeachers" FromRole="Teachers" ToRole="HasSpecialty" />
-    <NavigationProperty Name="Person" Relationship="Model.PersonTeachers" FromRole="Teachers" ToRole="Person" />
-  </EntityType>
-  <EntityType Name="Students">
-    <Key>
-      <PropertyRef Name="StudentId" />
-    </Key>
-    <Property Type="Int32" Name="StudentId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <NavigationProperty Name="HasSpecialty" Relationship="Model.HasSpecialtyStudents" FromRole="Students" ToRole="HasSpecialty" />
-    <NavigationProperty Name="People" Relationship="Model.StudentsPerson" FromRole="Students" ToRole="Person" />
-  </EntityType>
-  <EntityType Name="CaseManagers">
-    <Key>
-      <PropertyRef Name="CaseManagerId" />
-    </Key>
-    <Property Type="Int32" Name="CaseManagerId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <NavigationProperty Name="Person" Relationship="Model.PersonCaseManagers" FromRole="CaseManagers" ToRole="Person" />
+    <NavigationProperty Name="HasSpecialties" Relationship="Model.PersonHasSpecialty" FromRole="Person" ToRole="HasSpecialty" />
+    <NavigationProperty Name="HasRoles" Relationship="Model.PersonHasRole" FromRole="Person" ToRole="HasRole" />
+    <NavigationProperty Name="HasGroups" Relationship="Model.PersonHasGroup" FromRole="Person" ToRole="HasGroup" />
   </EntityType>
   <EntityType Name="Timeslots">
     <Key>
@@ -91,16 +68,18 @@
     <Property Type="Int32" Name="TimeslotId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Type="DateTime" Name="Start" Nullable="false" />
     <Property Type="DateTime" Name="End" Nullable="false" />
-    <NavigationProperty Name="Groups" Relationship="Model.TimeslotsGroups" FromRole="Timeslots" ToRole="Groups" />
-    <NavigationProperty Name="Room" Relationship="Model.RoomsTimeslots" FromRole="Timeslots" ToRole="Rooms" />
+    <NavigationProperty Name="GroupHasTimeslots" Relationship="Model.TimeslotsGroupHasTimeslot" FromRole="Timeslots" ToRole="GroupHasTimeslot" />
   </EntityType>
   <EntityType Name="Groups">
     <Key>
       <PropertyRef Name="GroupId" />
     </Key>
     <Property Type="Int32" Name="GroupId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <NavigationProperty Name="People" Relationship="Model.GroupsPerson" FromRole="Groups" ToRole="Person" />
-    <NavigationProperty Name="Timeslot" Relationship="Model.TimeslotsGroups" FromRole="Groups" ToRole="Timeslots" />
+    <NavigationProperty Name="HasGroups" Relationship="Model.GroupsHasGroup" FromRole="Groups" ToRole="HasGroup" />
+    <Property Type="String" Name="RoomId" Nullable="false" />
+    <NavigationProperty Name="Room" Relationship="Model.RoomsGroups" FromRole="Groups" ToRole="Rooms" />
+    <NavigationProperty Name="GroupHasTimeslots" Relationship="Model.GroupsGroupHasTimeslot" FromRole="Groups" ToRole="GroupHasTimeslot" />
+    <Property Type="String" Name="Subject" Nullable="false" />
   </EntityType>
   <EntityType Name="Rooms">
     <Key>
@@ -109,7 +88,7 @@
     <Property Type="Int32" Name="RoomId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Type="String" Name="Name" Nullable="false" />
     <Property Type="String" Name="Location" Nullable="false" />
-    <NavigationProperty Name="Timeslots" Relationship="Model.RoomsTimeslots" FromRole="Rooms" ToRole="Timeslots" />
+    <NavigationProperty Name="Groups" Relationship="Model.RoomsGroups" FromRole="Rooms" ToRole="Groups" />
   </EntityType>
   <EntityType Name="Specialities">
     <Key>
@@ -125,44 +104,83 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <NavigationProperty Name="Teachers" Relationship="Model.HasSpecialtyTeachers" FromRole="HasSpecialty" ToRole="Teachers" />
-    <NavigationProperty Name="Students" Relationship="Model.HasSpecialtyStudents" FromRole="HasSpecialty" ToRole="Students" />
     <NavigationProperty Name="Speciality" Relationship="Model.SpecialitiesHasSpecialty" FromRole="HasSpecialty" ToRole="Specialities" />
+    <Property Name="SpecialtyId" Nullable="false" Type="String" />
+    <NavigationProperty Name="Person" Relationship="Model.PersonHasSpecialty" FromRole="HasSpecialty" ToRole="Person" />
+    <Property Type="String" Name="PersonId" Nullable="false" />
   </EntityType>
-  <Association Name="GroupsPerson">
-    <End Type="Model.Groups" Role="Groups" Multiplicity="*" />
-    <End Type="Model.Person" Role="Person" Multiplicity="*" />
-  </Association>
-  <Association Name="HasSpecialtyTeachers">
-    <End Type="Model.HasSpecialty" Role="HasSpecialty" Multiplicity="1" />
-    <End Type="Model.Teachers" Role="Teachers" Multiplicity="*" />
-  </Association>
-  <Association Name="HasSpecialtyStudents">
-    <End Type="Model.HasSpecialty" Role="HasSpecialty" Multiplicity="1" />
-    <End Type="Model.Students" Role="Students" Multiplicity="*" />
-  </Association>
-  <Association Name="TimeslotsGroups">
-    <End Type="Model.Timeslots" Role="Timeslots" Multiplicity="*" />
-    <End Type="Model.Groups" Role="Groups" Multiplicity="1" />
-  </Association>
-  <Association Name="RoomsTimeslots">
-    <End Type="Model.Rooms" Role="Rooms" Multiplicity="*" />
-    <End Type="Model.Timeslots" Role="Timeslots" Multiplicity="*" />
-  </Association>
   <Association Name="SpecialitiesHasSpecialty">
     <End Type="Model.Specialities" Role="Specialities" Multiplicity="1" />
     <End Type="Model.HasSpecialty" Role="HasSpecialty" Multiplicity="*" />
   </Association>
-  <Association Name="StudentsPerson">
-    <End Type="Model.Students" Role="Students" Multiplicity="1" />
+  <EntityType Name="Roles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="Name" Nullable="false" />
+    <NavigationProperty Name="HasRoles" Relationship="Model.RolesHasRole" FromRole="Roles" ToRole="HasRole" />
+  </EntityType>
+  <Association Name="PersonHasSpecialty">
     <End Type="Model.Person" Role="Person" Multiplicity="1" />
+    <End Type="Model.HasSpecialty" Role="HasSpecialty" Multiplicity="*" />
   </Association>
-  <Association Name="PersonTeachers">
+  <EntityType Name="HasRole">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="Person" Relationship="Model.PersonHasRole" FromRole="HasRole" ToRole="Person" />
+    <Property Type="String" Name="RoleId" Nullable="false" />
+    <Property Type="String" Name="PersonId" Nullable="false" />
+    <NavigationProperty Name="Role" Relationship="Model.RolesHasRole" FromRole="HasRole" ToRole="Roles" />
+  </EntityType>
+  <Association Name="PersonHasRole">
     <End Type="Model.Person" Role="Person" Multiplicity="1" />
-    <End Type="Model.Teachers" Role="Teachers" Multiplicity="1" />
+    <End Type="Model.HasRole" Role="HasRole" Multiplicity="*" />
   </Association>
-  <Association Name="PersonCaseManagers">
+  <EntityType Name="HasGroup">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="Person" Relationship="Model.PersonHasGroup" FromRole="HasGroup" ToRole="Person" />
+    <NavigationProperty Name="Group" Relationship="Model.GroupsHasGroup" FromRole="HasGroup" ToRole="Groups" />
+    <Property Type="String" Name="PersonId" Nullable="false" />
+    <Property Type="String" Name="GroupId" Nullable="false" />
+  </EntityType>
+  <Association Name="PersonHasGroup">
     <End Type="Model.Person" Role="Person" Multiplicity="1" />
-    <End Type="Model.CaseManagers" Role="CaseManagers" Multiplicity="1" />
+    <End Type="Model.HasGroup" Role="HasGroup" Multiplicity="*" />
+  </Association>
+  <Association Name="GroupsHasGroup">
+    <End Type="Model.Groups" Role="Groups" Multiplicity="1" />
+    <End Type="Model.HasGroup" Role="HasGroup" Multiplicity="*" />
+  </Association>
+  <Association Name="RoomsGroups">
+    <End Type="Model.Rooms" Role="Rooms" Multiplicity="1" />
+    <End Type="Model.Groups" Role="Groups" Multiplicity="*" />
+  </Association>
+  <EntityType Name="GroupHasTimeslot">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="Group" Relationship="Model.GroupsGroupHasTimeslot" FromRole="GroupHasTimeslot" ToRole="Groups" />
+    <NavigationProperty Name="Timeslot" Relationship="Model.TimeslotsGroupHasTimeslot" FromRole="GroupHasTimeslot" ToRole="Timeslots" />
+    <Property Type="String" Name="TimeslotId" Nullable="false" />
+    <Property Type="String" Name="GroupId" Nullable="false" />
+  </EntityType>
+  <Association Name="GroupsGroupHasTimeslot">
+    <End Type="Model.Groups" Role="Groups" Multiplicity="1" />
+    <End Type="Model.GroupHasTimeslot" Role="GroupHasTimeslot" Multiplicity="*" />
+  </Association>
+  <Association Name="TimeslotsGroupHasTimeslot">
+    <End Type="Model.Timeslots" Role="Timeslots" Multiplicity="1" />
+    <End Type="Model.GroupHasTimeslot" Role="GroupHasTimeslot" Multiplicity="*" />
+  </Association>
+  <Association Name="RolesHasRole">
+    <End Type="Model.Roles" Role="Roles" Multiplicity="1" />
+    <End Type="Model.HasRole" Role="HasRole" Multiplicity="*" />
   </Association>
 </Schema>

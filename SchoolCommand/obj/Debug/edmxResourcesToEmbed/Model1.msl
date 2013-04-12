@@ -25,6 +25,8 @@
       <EntityTypeMapping TypeName="IsTypeOf(Model.Groups)">
         <MappingFragment StoreEntitySet="Groups">
           <ScalarProperty Name="GroupId" ColumnName="GroupId" />
+          <ScalarProperty Name="RoomId" ColumnName="RoomId" />
+          <ScalarProperty Name="Subject" ColumnName="Subject" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -50,33 +52,46 @@
       <EntityTypeMapping TypeName="IsTypeOf(Model.HasSpecialty)">
         <MappingFragment StoreEntitySet="HasSpecialties">
           <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="SpecialtyId" ColumnName="SpecialtyId" />
+          <ScalarProperty Name="PersonId" ColumnName="PersonId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <AssociationSetMapping Name="GroupsPerson" TypeName="Model.GroupsPerson" StoreEntitySet="GroupsPerson">
-      <EndProperty Name="Groups">
-        <ScalarProperty Name="GroupId" ColumnName="Group_GroupId" />
-      </EndProperty>
-      <EndProperty Name="Person">
-        <ScalarProperty Name="PersonId" ColumnName="People_PersonId" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="TimeslotsGroups" TypeName="Model.TimeslotsGroups" StoreEntitySet="Timeslots">
-      <EndProperty Name="Groups">
-        <ScalarProperty Name="GroupId" ColumnName="Groups_GroupId" />
-      </EndProperty>
-      <EndProperty Name="Timeslots">
-        <ScalarProperty Name="TimeslotId" ColumnName="TimeslotId" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="RoomsTimeslots" TypeName="Model.RoomsTimeslots" StoreEntitySet="RoomsTimeslots">
-      <EndProperty Name="Rooms">
-        <ScalarProperty Name="RoomId" ColumnName="Room_RoomId" />
-      </EndProperty>
-      <EndProperty Name="Timeslots">
-        <ScalarProperty Name="TimeslotId" ColumnName="Timeslots_TimeslotId" />
-      </EndProperty>
-    </AssociationSetMapping>
+    <EntitySetMapping Name="Roles">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Roles)">
+        <MappingFragment StoreEntitySet="Roles">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HasRoles">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.HasRole)">
+        <MappingFragment StoreEntitySet="HasRoles">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+          <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HasGroups">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.HasGroup)">
+        <MappingFragment StoreEntitySet="HasGroups">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+          <ScalarProperty Name="GroupId" ColumnName="GroupId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GroupHasTimeslots">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.GroupHasTimeslot)">
+        <MappingFragment StoreEntitySet="GroupHasTimeslots">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="TimeslotId" ColumnName="TimeslotId" />
+          <ScalarProperty Name="GroupId" ColumnName="GroupId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <AssociationSetMapping Name="SpecialitiesHasSpecialty" TypeName="Model.SpecialitiesHasSpecialty" StoreEntitySet="HasSpecialties">
       <EndProperty Name="Specialities">
         <ScalarProperty Name="Id" ColumnName="Speciality_Id" />
@@ -85,41 +100,68 @@
         <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
     </AssociationSetMapping>
-    <EntitySetMapping Name="Students">
-      <EntityTypeMapping TypeName="IsTypeOf(Model.Students)" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <MappingFragment StoreEntitySet="People_Students">
-          <ScalarProperty Name="StudentId" ColumnName="StudentId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <AssociationSetMapping Name="HasSpecialtyStudents" TypeName="Model.HasSpecialtyStudents" StoreEntitySet="People_Students" />
-    <EntitySetMapping Name="Teachers">
-      <EntityTypeMapping TypeName="IsTypeOf(Model.Teachers)" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <MappingFragment StoreEntitySet="People_Teachers">
-          <ScalarProperty Name="TeacherId" ColumnName="TeacherId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <AssociationSetMapping Name="HasSpecialtyTeachers" TypeName="Model.HasSpecialtyTeachers" StoreEntitySet="People_Teachers">
-      <EndProperty Name="Teachers">
-        <ScalarProperty Name="TeacherId" ColumnName="TeacherId" />
+    <AssociationSetMapping Name="PersonHasSpecialty" TypeName="Model.PersonHasSpecialty" StoreEntitySet="HasSpecialties">
+      <EndProperty Name="Person">
+        <ScalarProperty Name="PersonId" ColumnName="Person_PersonId" />
+      </EndProperty>
+      <EndProperty Name="HasSpecialty">
+        <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
     </AssociationSetMapping>
-    <EntitySetMapping Name="CaseManagers">
-      <EntityTypeMapping TypeName="IsTypeOf(Model.CaseManagers)" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <MappingFragment StoreEntitySet="People_CaseManagers">
-          <ScalarProperty Name="CaseManagerId" ColumnName="CaseManagerId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <AssociationSetMapping Name="PersonCaseManagers" TypeName="Model.PersonCaseManagers" StoreEntitySet="People">
+    <AssociationSetMapping Name="PersonHasRole" TypeName="Model.PersonHasRole" StoreEntitySet="HasRoles">
       <EndProperty Name="Person">
-        <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+        <ScalarProperty Name="PersonId" ColumnName="Person_PersonId" />
+      </EndProperty>
+      <EndProperty Name="HasRole">
+        <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
     </AssociationSetMapping>
-    <AssociationSetMapping Name="PersonTeachers" TypeName="Model.PersonTeachers" StoreEntitySet="People">
+    <AssociationSetMapping Name="PersonHasGroup" TypeName="Model.PersonHasGroup" StoreEntitySet="HasGroups">
       <EndProperty Name="Person">
-        <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+        <ScalarProperty Name="PersonId" ColumnName="Person_PersonId" />
+      </EndProperty>
+      <EndProperty Name="HasGroup">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="GroupsHasGroup" TypeName="Model.GroupsHasGroup" StoreEntitySet="HasGroups">
+      <EndProperty Name="Groups">
+        <ScalarProperty Name="GroupId" ColumnName="Group_GroupId" />
+      </EndProperty>
+      <EndProperty Name="HasGroup">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="RoomsGroups" TypeName="Model.RoomsGroups" StoreEntitySet="Groups">
+      <EndProperty Name="Rooms">
+        <ScalarProperty Name="RoomId" ColumnName="Room_RoomId" />
+      </EndProperty>
+      <EndProperty Name="Groups">
+        <ScalarProperty Name="GroupId" ColumnName="GroupId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="GroupsGroupHasTimeslot" TypeName="Model.GroupsGroupHasTimeslot" StoreEntitySet="GroupHasTimeslots">
+      <EndProperty Name="Groups">
+        <ScalarProperty Name="GroupId" ColumnName="Group_GroupId" />
+      </EndProperty>
+      <EndProperty Name="GroupHasTimeslot">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="TimeslotsGroupHasTimeslot" TypeName="Model.TimeslotsGroupHasTimeslot" StoreEntitySet="GroupHasTimeslots">
+      <EndProperty Name="Timeslots">
+        <ScalarProperty Name="TimeslotId" ColumnName="Timeslot_TimeslotId" />
+      </EndProperty>
+      <EndProperty Name="GroupHasTimeslot">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="RolesHasRole" TypeName="Model.RolesHasRole" StoreEntitySet="HasRoles">
+      <EndProperty Name="Roles">
+        <ScalarProperty Name="Id" ColumnName="Role_Id" />
+      </EndProperty>
+      <EndProperty Name="HasRole">
+        <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
     </AssociationSetMapping>
   </EntityContainerMapping>
