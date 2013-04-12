@@ -23,21 +23,25 @@ namespace SchoolCommand
                     {
                         Console.Clear();
                         Console.WriteLine("===========PEOPLE MANAGER===========");
-                        using (var db = new Entities())
+                        
+                        /*using (var db = new Entities())
                         {
                             int i = 1;
                             foreach(Roles r in db.Roles)
                             {
                                 Console.WriteLine("" + i + ") Manage " + r.Name);
                             }
-                        }
+                        }*/
+                        
                         Console.WriteLine("1) Manage Students\n2) Manage Teachers\n3) Manage Case Managers\n4) Return to main menu");
 
                         choice = Convert.ToInt32(Console.ReadLine());
+
+                        //break out to main loop
                         if (choice == 4)
                             break;
-                        PeopleManager m = new PeopleManager(choice);
 
+                        PeopleManager m = new PeopleManager(choice);
                         Console.WriteLine("1: Add " + m.type + "\n2: Edit " + m.type + "\n3: Delete " + m.type
                             + "4: Exit");
 
@@ -53,7 +57,18 @@ namespace SchoolCommand
                             String age = Console.ReadLine();
                             Console.Write("Phone: ");
                             String phone = Console.ReadLine();
-                            var person = new Person();
+                            var person = new Person
+                            {
+                                Name = name,
+                                Address = address,
+                                Age = age,
+                                Phone = phone
+                            };
+                            using (var db = new Entities())
+                            {
+                                db.People.Add(person);
+                                db.SaveChanges();
+                            }
                             //if (m.type.Equals("Case Manager"))
                             //{
                             //    person = new CaseManagers
