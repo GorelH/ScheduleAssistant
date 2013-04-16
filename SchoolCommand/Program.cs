@@ -23,6 +23,8 @@ namespace SchoolCommand
 
                 if (choice == 1)
                 {
+                    PeopleManager pm = new PeopleManager(1);
+
                     while (true)
                     {
                         Console.Clear();
@@ -37,11 +39,20 @@ namespace SchoolCommand
                             }
                         }*/
 
-                        Console.WriteLine("1) Manage Students\n2) Manage Teachers\n3) Manage Case Managers\n4) Return to main menu");
+                        Console.WriteLine("1)Add Person\n2)Remove Person\n3)Delete Person\n4) Return to main menu");
 
                         choice = Convert.ToInt32(Console.ReadLine());
 
                         //break out to main loop
+                        if (choice == 1)
+                        {
+                            break;
+                        }
+
+                        if (choice == 2)
+                            break;
+                        if (choice == 3)
+                            break;
                         if (choice == 4)
                             break;
 
