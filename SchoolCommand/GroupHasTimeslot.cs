@@ -15,7 +15,7 @@ namespace SchoolCommand
     public partial class GroupHasTimeslot
     {
         public int Id { get; set; }
-        public string TimeslotId { get; set; }
+        public int TimeslotId { get; set; }
         public string GroupId { get; set; }
     
         public virtual Groups Group { get; set; }

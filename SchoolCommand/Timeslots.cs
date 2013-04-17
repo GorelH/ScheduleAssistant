@@ -19,7 +19,7 @@ namespace SchoolCommand
             this.GroupHasTimeslots = new HashSet<GroupHasTimeslot>();
         }
     
-        public System.Guid TimeslotId { get; set; }
+        public int TimeslotId { get; set; }
         public System.DateTime Start { get; set; }
         public System.DateTime End { get; set; }
     

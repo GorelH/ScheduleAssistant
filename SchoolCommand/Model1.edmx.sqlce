@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server Compact Edition
 -- --------------------------------------------------
--- Date Created: 04/11/2013 19:57:31
--- Generated from EDMX file: C:\Users\Anthony\documents\visual studio 2012\Projects\SchoolCommand\SchoolCommand\Model1.edmx
+-- Date Created: 04/16/2013 21:04:33
+-- Generated from EDMX file: C:\Users\Carlos\Development\ScheduleAssistant\SchoolCommand\Model1.edmx
 -- --------------------------------------------------
 
 
@@ -12,9 +12,23 @@
 -- NOTE: if the constraint does not exist, an ignorable error will be reported.
 -- --------------------------------------------------
 
-    ALTER TABLE [Timeslots] DROP CONSTRAINT [FK_TimeslotsGroups];
-GO
     ALTER TABLE [HasSpecialties] DROP CONSTRAINT [FK_SpecialitiesHasSpecialty];
+GO
+    ALTER TABLE [HasSpecialties] DROP CONSTRAINT [FK_PersonHasSpecialty];
+GO
+    ALTER TABLE [HasRoles] DROP CONSTRAINT [FK_PersonHasRole];
+GO
+    ALTER TABLE [HasGroups] DROP CONSTRAINT [FK_PersonHasGroup];
+GO
+    ALTER TABLE [HasGroups] DROP CONSTRAINT [FK_GroupsHasGroup];
+GO
+    ALTER TABLE [Groups] DROP CONSTRAINT [FK_RoomsGroups];
+GO
+    ALTER TABLE [GroupHasTimeslots] DROP CONSTRAINT [FK_GroupsGroupHasTimeslot];
+GO
+    ALTER TABLE [GroupHasTimeslots] DROP CONSTRAINT [FK_TimeslotsGroupHasTimeslot];
+GO
+    ALTER TABLE [HasRoles] DROP CONSTRAINT [FK_RolesHasRole];
 GO
 
 -- --------------------------------------------------
@@ -33,6 +47,14 @@ GO
     DROP TABLE [Specialities];
 GO
     DROP TABLE [HasSpecialties];
+GO
+    DROP TABLE [Roles];
+GO
+    DROP TABLE [HasRoles];
+GO
+    DROP TABLE [HasGroups];
+GO
+    DROP TABLE [GroupHasTimeslots];
 GO
 
 -- --------------------------------------------------
@@ -122,7 +144,7 @@ GO
 -- Creating table 'GroupHasTimeslots'
 CREATE TABLE [GroupHasTimeslots] (
     [Id] int IDENTITY(1,1) NOT NULL,
-    [TimeslotId] nvarchar(4000)  NOT NULL,
+    [TimeslotId] int  NOT NULL,
     [GroupId] nvarchar(4000)  NOT NULL,
     [Group_GroupId] int  NOT NULL,
     [Timeslot_TimeslotId] int  NOT NULL

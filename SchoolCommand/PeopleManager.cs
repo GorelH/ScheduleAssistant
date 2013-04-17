@@ -142,7 +142,9 @@ namespace SchoolCommand
         {
             using (var db = new Entities())
             {
-               
+                var listing = from p in db.People
+                              where p.Phone.Equals(phone)
+                              select p;
             }
         }
 
