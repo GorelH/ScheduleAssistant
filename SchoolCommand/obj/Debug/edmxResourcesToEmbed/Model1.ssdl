@@ -133,7 +133,7 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="TimeslotId" Type="nvarchar" Nullable="false" />
+    <Property Name="TimeslotId" Type="int" Nullable="false" />
     <Property Name="GroupId" Type="nvarchar" Nullable="false" />
     <Property Name="Group_GroupId" Type="int" Nullable="false" />
     <Property Name="Timeslot_TimeslotId" Type="int" Nullable="false" />

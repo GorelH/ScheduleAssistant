@@ -8,7 +8,7 @@ namespace SchoolCommand
 {
     class PeopleManager
     {
-        public bool AddPerson(String name, String address, String age, String phone)
+        public static bool AddPerson(String name, String address, String age, String phone)
         {
             var person = new Person
             {

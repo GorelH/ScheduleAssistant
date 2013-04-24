@@ -168,7 +168,7 @@
     <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <NavigationProperty Name="Group" Relationship="Model.GroupsGroupHasTimeslot" FromRole="GroupHasTimeslot" ToRole="Groups" />
     <NavigationProperty Name="Timeslot" Relationship="Model.TimeslotsGroupHasTimeslot" FromRole="GroupHasTimeslot" ToRole="Timeslots" />
-    <Property Type="String" Name="TimeslotId" Nullable="false" />
+    <Property Type="Int32" Name="TimeslotId" Nullable="false" />
     <Property Type="String" Name="GroupId" Nullable="false" />
   </EntityType>
   <Association Name="GroupsGroupHasTimeslot">

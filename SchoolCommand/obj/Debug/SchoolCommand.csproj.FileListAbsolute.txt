@@ -10,3 +10,9 @@ C:\Users\Anthony\documents\visual studio 2012\Projects\SchoolCommand\SchoolComma
 C:\Users\Carlos\Development\ScheduleAssistant\SchoolCommand\bin\Debug\SchoolCommand.exe.config
 C:\Users\Carlos\Development\ScheduleAssistant\SchoolCommand\obj\Debug\SchoolCommand.exe
 C:\Users\Carlos\Development\ScheduleAssistant\SchoolCommand\obj\Debug\SchoolCommand.pdb
+C:\Users\Carlos\Development\ScheduleAssistant\SchoolCommand\bin\Debug\MyDatabase#1.sdf
+C:\Users\Carlos\Development\ScheduleAssistant\SchoolCommand\bin\Debug\SchoolCommand.exe
+C:\Users\Carlos\Development\ScheduleAssistant\SchoolCommand\bin\Debug\SchoolCommand.pdb
+C:\Users\Carlos\Development\ScheduleAssistant\SchoolCommand\bin\Debug\EntityFramework.dll
+C:\Users\Carlos\Development\ScheduleAssistant\SchoolCommand\bin\Debug\EntityFramework.xml
+C:\Users\Carlos\Development\ScheduleAssistant\SchoolCommand\obj\Debug\SchoolCommand.csprojResolveAssemblyReference.cache
