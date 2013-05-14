@@ -98,9 +98,71 @@ namespace SchoolCommand
         /// <param name="personId">The ID of the person</param>
         /// <param name="specialtyTitle">The title text of the specialty</param>
         /// <param name="specialtyText">The description of the specialty</param>
-        private void ModifySpecialties(int personId, String specialtyTitle, String specialtyText)
+        private void AddSpecialty(int personId, int specialty)
         {
+            using (var db = new Entities())
+            {
+                //get person
+                var p = db.People.Find(personId);
+                if (p == null)
+                    throw new InvalidOperationException("Person with person ID does not exist");
 
+                var s = db.Specialities.Find(specialty);
+                if (s == null)
+                    throw new InvalidOperationException("Specialty does not exist");
+
+                var specialties = from sp in db.HasSpecialties
+                                  where sp.Person == p && sp.Speciality == s
+                                  select sp;
+
+                if (specialties.Count() > 0)
+                    throw new InvalidOperationException("Added Specialty already exists for person");
+                else
+                {
+                    int count = db.HasSpecialties.Count() + 1;
+                    p.HasSpecialties.Add(new HasSpecialty
+                    {
+                        Person = p,
+                        Speciality = s,
+                        Id = count
+                    });
+                    db.SaveChanges();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Adds or removes a specialty from a given person. Creates the specialty if it
+        /// doesn't pre-exist.
+        /// </summary>
+        /// <param name="personId">The ID of the person</param>
+        /// <param name="specialtyTitle">The title text of the specialty</param>
+        /// <param name="specialtyText">The description of the specialty</param>
+        private void RemoveSpecialty(int personId, int specialty)
+        {
+            using (var db = new Entities())
+            {
+                //get person
+                var p = db.People.Find(personId);
+                if (p == null)
+                    throw new InvalidOperationException("Person with person ID does not exist");
+
+                var s = db.Specialities.Find(specialty);
+                if (s == null)
+                    throw new InvalidOperationException("Specialty does not exist");
+
+                var specialties = from sp in db.HasSpecialties
+                                  where sp.Person == p && sp.Speciality == s
+                                  select sp;
+
+                if (specialties.Count() < 1)
+                    throw new InvalidOperationException("Added Specialty does not exist for person");
+                else
+                {
+                    p.HasSpecialties.Remove(specialties.First());
+                    db.SaveChanges();
+                }
+            }
         }
     }
 }
