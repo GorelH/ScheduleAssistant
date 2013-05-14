@@ -164,5 +164,62 @@ namespace SchoolCommand
                 }
             }
         }
+
+        /// <summary>
+        /// Adds a role to a person.
+        /// </summary>
+        /// <param name="personId">The primary key of a person</param>
+        /// <param name="roleId">The primary key of the role</param>
+        private void AddRole(int personId, int roleId)
+        {
+            using (var db = new Entities())
+            {
+                var p = db.People.Find(personId);
+                if (p == null)
+                    throw new InvalidProgramException("No person found");
+                var r = db.Roles.Find(roleId);
+                if (r == null)
+                    throw new InvalidProgramException("No role found.");
+                var hasRole = from hr in db.HasRoles
+                                   where hr.Person == p && hr.Role == r
+                                   select hr;
+                if (hasRole.Count() > 0)
+                    throw new InvalidProgramException("Person has role already");
+                else
+                    p.HasRoles.Add(new HasRole
+                    {
+                        Person = p,
+                        Role = r,
+                        Id = db.HasRoles.Count() + 1
+                    });
+                db.SaveChanges();
+            }
+        }
+
+        /// <summary>
+        /// Removes a role from a person.
+        /// </summary>
+        /// <param name="personId">The primary key of a person</param>
+        /// <param name="roleId">The primary key of the role</param>
+        private void RemoveRole(int personId, int roleId)
+        {
+            using (var db = new Entities())
+            {
+                var p = db.People.Find(personId);
+                if (p == null)
+                    throw new InvalidProgramException("No person found");
+                var r = db.Roles.Find(roleId);
+                if (r == null)
+                    throw new InvalidProgramException("No role found.");
+                var hasRole = from hr in db.HasRoles
+                              where hr.Person == p && hr.Role == r
+                              select hr;
+                if (hasRole.Count() < 1)
+                    throw new InvalidProgramException("Person doesn't have role yet");
+                else
+                    p.HasRoles.Remove(hasRole.First());
+                db.SaveChanges();
+            }
+        }
     }
 }
