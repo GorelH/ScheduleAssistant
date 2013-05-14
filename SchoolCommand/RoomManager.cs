@@ -64,7 +64,7 @@ namespace SchoolCommand
             }
         }
 
-        public IEnumerable<Person> SearchPeople(String name, String location)
+        public IEnumerable<Rooms> SearchPeople(String name, String location)
         {
             using (var db = new Entities())
             {
@@ -74,7 +74,7 @@ namespace SchoolCommand
                 var select1 = from r in db.Rooms
                               where ((name != null) ? r.Name == name : true) &&
                               ((location != null) ? r.Location == location : true)
-                              select p;
+                              select r;
                 return select1;
 
 

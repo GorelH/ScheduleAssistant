@@ -102,6 +102,7 @@
     <Compile Include="Roles.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="RoomManager.cs" />
     <Compile Include="Rooms.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
