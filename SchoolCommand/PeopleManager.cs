@@ -71,14 +71,36 @@ namespace SchoolCommand
             }
         }
 
-        public void SearchPeople(String name, String address, String age, String phone)
+        public IEnumerable<Person> SearchPeople(String name, String address, String age, String phone)
         {
             using (var db = new Entities())
             {
-                var listing = from p in db.People
-                              where p.Phone.Equals(phone)
+                //var select1 = (phone != null) ? db.People.Where(x => phone.Equals(phone)) : (age != null) ? db.People.Where(x=> x.Age.Equals(age)) : 
+                //    (address != null)? db.People.Where(x => x.Address.Equals(address)) : ((name != null)? db.People.Where( p => p.Name.Equals(name)) : null);
+
+                var select1 = from p in db.People
+                              where ((name != null) ? p.Name == name : true) &&
+                              ((address != null) ? p.Address == address : true) &&
+                              ((age != null) ? p.Age == age : true) &&
+                              ((phone != null) ? p.Phone == phone : true)
                               select p;
+                return select1;
+
+
             }
+
+        }
+
+        /// <summary>
+        /// Adds or removes a specialty from a given person. Creates the specialty if it
+        /// doesn't pre-exist.
+        /// </summary>
+        /// <param name="personId">The ID of the person</param>
+        /// <param name="specialtyTitle">The title text of the specialty</param>
+        /// <param name="specialtyText">The description of the specialty</param>
+        private void ModifySpecialties(int personId, String specialtyTitle, String specialtyText)
+        {
+
         }
     }
 }

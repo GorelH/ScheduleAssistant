@@ -16,3 +16,6 @@ C:\Users\Carlos\Development\ScheduleAssistant\SchoolCommand\bin\Debug\SchoolComm
 C:\Users\Carlos\Development\ScheduleAssistant\SchoolCommand\bin\Debug\EntityFramework.dll
 C:\Users\Carlos\Development\ScheduleAssistant\SchoolCommand\bin\Debug\EntityFramework.xml
 C:\Users\Carlos\Development\ScheduleAssistant\SchoolCommand\obj\Debug\SchoolCommand.csprojResolveAssemblyReference.cache
+C:\Users\Public\Documents\GitProjects\School Command\SchoolCommand\bin\Debug\SchoolCommand.exe.config
+C:\Users\Public\Documents\GitProjects\School Command\SchoolCommand\obj\Debug\SchoolCommand.exe
+C:\Users\Public\Documents\GitProjects\School Command\SchoolCommand\obj\Debug\SchoolCommand.pdb
