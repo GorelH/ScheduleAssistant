@@ -1,12 +1,3 @@
-<<<<<<< HEAD
-ScheduleAssistant-THIS LINE MUST CONFLICT
-=======
-ScheduleAssistant - CONFLICTLINE
->>>>>>> origin/master
-=================
-NON-CONFLICTING-LINE
-A scheduling assistant built to specifications given by a friend
-[pae9rguspriothj
+ScheduleAssistant
 
-Blargag!
-TESTING again!
+A custom-built tool for scheduling students and teachers into classes.
