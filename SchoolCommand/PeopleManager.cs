@@ -22,7 +22,7 @@ namespace SchoolCommand
             {
                 db.People.Add(person);
 
-                if (db.SaveChanges() > 1)
+                if (db.SaveChanges() > 0)
                     return true;
                 else
                     return false;
@@ -48,7 +48,7 @@ namespace SchoolCommand
                     if (!person.Phone.Equals(phone))
                         person.Phone = phone;
 
-                    if (db.SaveChanges() > 1)
+                    if (db.SaveChanges() > 0)
                         return true;
                     else
                         return false;
@@ -64,29 +64,69 @@ namespace SchoolCommand
 
                 db.People.Remove(person);
 
-                if (db.SaveChanges() > 1)
+                if (db.SaveChanges() > 0)
                     return true;
                 else
                     return false;
             }
         }
 
-        public IEnumerable<Person> SearchPeople(String name, String address, String age, String phone)
+        public static IEnumerable<Object> SearchPeople(String name, String address, String age, String phone)
         {
             using (var db = new Entities())
             {
                 //var select1 = (phone != null) ? db.People.Where(x => phone.Equals(phone)) : (age != null) ? db.People.Where(x=> x.Age.Equals(age)) : 
                 //    (address != null)? db.People.Where(x => x.Address.Equals(address)) : ((name != null)? db.People.Where( p => p.Name.Equals(name)) : null);
 
-                var select1 = from p in db.People
-                              where ((name != null) ? p.Name == name : true) &&
-                              ((address != null) ? p.Address == address : true) &&
-                              ((age != null) ? p.Age == age : true) &&
-                              ((phone != null) ? p.Phone == phone : true)
-                              select p;
-                return select1;
+                /*var select1 = from p in db.People
+                              where (name != null && !(name.Trim().Equals("")) ? p.Name == name : true) &&
+                              (address != null && !(address.Trim().Equals("")) ? p.Address == address : true) &&
+                              (age != null && !(age.Trim().Equals("")) ? p.Age == age : true) &&
+                              (name != null && !(name.Trim().Equals("")) ? p.Phone == phone : true)
+                              select p;*/
+                String selectClause = "SELECT * FROM People p";
+                String whereClause = string.Empty;
+                String sql = string.Empty;
 
 
+                int index = 0;
+                List<String> parm = new List<String>();
+
+                if (!string.IsNullOrEmpty(name))
+                {
+                    whereClause = "p.Name = {" + index++ + "}";
+                    parm.Add(name);
+                }
+                if (!string.IsNullOrEmpty(address))
+                {
+                    if (!string.IsNullOrEmpty(whereClause))
+                        whereClause += " AND ";
+                    whereClause += "p.Address = {" + index++ + "}";
+                    parm.Add(address);
+                }
+                if (!string.IsNullOrEmpty(age))
+                {
+                    if (!string.IsNullOrEmpty(whereClause))
+                        whereClause += " AND ";
+                    whereClause += "p.Age = {" + index++ + "}";
+                    parm.Add(age);
+                }
+                if (!string.IsNullOrEmpty(phone))
+                {
+                    if (!string.IsNullOrEmpty(phone))
+                        whereClause += " AND ";
+                    whereClause += "p.Phone = {" + index++ + "}";
+                    parm.Add(phone);
+                }
+
+                if (!string.IsNullOrEmpty(whereClause))
+                {
+                    sql = selectClause + " WHERE " + whereClause;
+                }
+
+                var select1 = db.People.SqlQuery(sql, parm.ToArray());
+
+                return select1.ToList();
             }
 
         }
