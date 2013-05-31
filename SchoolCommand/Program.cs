@@ -38,14 +38,38 @@ namespace SchoolCommand
                             Console.Write("Phone: ");
                             String phone = Console.ReadLine();
 
-                            PeopleManager.AddPerson(name, address, age, phone);
+                            if(PeopleManager.AddPerson(name, address, age, phone))
+                                Console.WriteLine("Success!");
+                            else
+                                Console.WriteLine("Failure!");
                         }
                         else if (choice == 2)
                         { }
                         else if (choice == 3)
                         { }
                         else if (choice == 4)
-                        { }
+                        {
+                            Console.WriteLine("Leave any of the following fields blank to ignore it");
+
+                            Console.Write("Name: ");
+                            String name = Console.ReadLine();
+                            Console.Write("Address: ");
+                            String address = Console.ReadLine();
+                            Console.Write("Age: ");
+                            String age = Console.ReadLine();
+                            Console.Write("Phone: ");
+                            String phone = Console.ReadLine();
+
+                            foreach(Person p in PeopleManager.SearchPeople(name, address, age, phone))
+                            {
+                                Console.WriteLine("ID: " + p.PersonId);
+                                Console.WriteLine("Name: " + p.Name);
+                                Console.WriteLine("Age: " + p.Age);
+                                Console.WriteLine("Phone: " + p.Phone);
+                                Console.WriteLine("Address: " + p.Address);
+                            }
+
+                        }
                         else if (choice == 5)
                         { break; }
                     }
