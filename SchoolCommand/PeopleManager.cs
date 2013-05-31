@@ -84,49 +84,47 @@ namespace SchoolCommand
                               (age != null && !(age.Trim().Equals("")) ? p.Age == age : true) &&
                               (name != null && !(name.Trim().Equals("")) ? p.Phone == phone : true)
                               select p;*/
-                String selectClause = "SELECT * FROM People p";
+                String selectClause = "SELECT * FROM People";
                 String whereClause = string.Empty;
                 String sql = string.Empty;
 
-
-                int index = 0;
-                List<String> parm = new List<String>();
-
                 if (!string.IsNullOrEmpty(name))
                 {
-                    whereClause = "p.Name = {" + index++ + "}";
-                    parm.Add(name);
+                    whereClause = "People.Name LIKE '%" + name + "%'";
                 }
                 if (!string.IsNullOrEmpty(address))
                 {
                     if (!string.IsNullOrEmpty(whereClause))
                         whereClause += " AND ";
-                    whereClause += "p.Address = {" + index++ + "}";
-                    parm.Add(address);
+                    whereClause += "People.Address LIKE '%" + address + "%'";
                 }
                 if (!string.IsNullOrEmpty(age))
                 {
                     if (!string.IsNullOrEmpty(whereClause))
                         whereClause += " AND ";
-                    whereClause += "p.Age = {" + index++ + "}";
-                    parm.Add(age);
+                    whereClause += "People.Age LIKE '%" + age + "%'";
                 }
                 if (!string.IsNullOrEmpty(phone))
                 {
                     if (!string.IsNullOrEmpty(phone))
                         whereClause += " AND ";
-                    whereClause += "p.Phone = {" + index++ + "}";
-                    parm.Add(phone);
+                    whereClause += "People.Phone LIKE '%" + phone + "%'";
                 }
 
                 if (!string.IsNullOrEmpty(whereClause))
                 {
                     sql = selectClause + " WHERE " + whereClause;
                 }
+                else
+                {
+                    sql = selectClause;
+                }
 
-                var select1 = db.People.SqlQuery(sql, parm.ToArray());
+                var select1 = db.People.SqlQuery(sql);
 
-                return select1.ToList();
+                List<Person> results = select1.ToList<Person>();
+
+                return results;
             }
 
         }
