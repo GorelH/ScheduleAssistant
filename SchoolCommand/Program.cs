@@ -46,7 +46,12 @@ namespace SchoolCommand
                         else if (choice == 2)
                         { }
                         else if (choice == 3)
-                        { }
+                        {
+                            Console.WriteLine("Person Id");
+                            choice = Convert.ToInt32(Console.ReadLine());
+
+                            PeopleManager.DeletePerson(choice);
+                        }
                         else if (choice == 4)
                         {
                             Console.WriteLine("Leave any of the following fields blank to ignore it");
@@ -67,6 +72,7 @@ namespace SchoolCommand
                                 Console.WriteLine("Age: " + p.Age);
                                 Console.WriteLine("Phone: " + p.Phone);
                                 Console.WriteLine("Address: " + p.Address);
+                                Console.WriteLine("============================================");
                             }
 
                         }

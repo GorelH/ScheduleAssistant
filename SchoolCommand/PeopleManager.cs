@@ -56,7 +56,7 @@ namespace SchoolCommand
             }
         
         }
-        public bool DeletePerson(int personId)
+        public static bool DeletePerson(int personId)
         {
             using (var db = new Entities())
             {
@@ -75,15 +75,6 @@ namespace SchoolCommand
         {
             using (var db = new Entities())
             {
-                //var select1 = (phone != null) ? db.People.Where(x => phone.Equals(phone)) : (age != null) ? db.People.Where(x=> x.Age.Equals(age)) : 
-                //    (address != null)? db.People.Where(x => x.Address.Equals(address)) : ((name != null)? db.People.Where( p => p.Name.Equals(name)) : null);
-
-                /*var select1 = from p in db.People
-                              where (name != null && !(name.Trim().Equals("")) ? p.Name == name : true) &&
-                              (address != null && !(address.Trim().Equals("")) ? p.Address == address : true) &&
-                              (age != null && !(age.Trim().Equals("")) ? p.Age == age : true) &&
-                              (name != null && !(name.Trim().Equals("")) ? p.Phone == phone : true)
-                              select p;*/
                 String selectClause = "SELECT * FROM People";
                 String whereClause = string.Empty;
                 String sql = string.Empty;
@@ -126,7 +117,6 @@ namespace SchoolCommand
 
                 return results;
             }
-
         }
 
         /// <summary>
